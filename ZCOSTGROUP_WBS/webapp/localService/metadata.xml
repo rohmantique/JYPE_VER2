@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YY1_ZCOSTGROUP_WBS_CDS" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_CompanyCodeStdVHType" sap:label="회사 코드" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="CompanyCodeName" sap:label="회사 코드"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="회사 이름" sap:quickinfo="회사 코드 또는 회사의 이름"/>
+            </EntityType>
+            <EntityType Name="P_Scbo_UserType" sap:label="User" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="name"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="사용자" sap:quickinfo="사용자 마스터 레코드의 사용자 이름"/>
+                <Property Name="description" Type="Edm.String" MaxLength="80" sap:label="내역" sap:quickinfo="기술 사용자 계정 내역"/>
+            </EntityType>
+            <EntityType Name="YY1_VH_ZCOSTGROUPType" sap:label="ZCOSTGROUP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="COMPANYCODE"/>
+                    <PropertyRef Name="COSTGROUP"/>
+                </Key>
+                <Property Name="COMPANYCODE" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="SAP_Description" sap:label="COMPANYCODE"/>
+                <Property Name="COSTGROUP" Type="Edm.String" Nullable="false" MaxLength="8" sap:text="SAP_Description" sap:label="COSTGROUP"/>
+                <Property Name="SAP_Description" Type="Edm.String" MaxLength="80" sap:label="Description"/>
+                <Property Name="COSTGROUPTEXT" Type="Edm.String" MaxLength="50" sap:label="COSTGROUPTEXT"/>
+                <Property Name="USEYN" Type="Edm.Boolean" sap:label="USEYN"/>
+                <Property Name="sap_uuid" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </EntityType>
+            <EntityType Name="YY1_ZCOSTGROUPType" sap:label="ZCOSTGROUP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SAP_UUID"/>
+                </Key>
+                <Property Name="SAP_UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="COMPANYCODE" Type="Edm.String" MaxLength="20" sap:label="COMPANYCODE"/>
+                <Property Name="COSTGROUP" Type="Edm.String" MaxLength="8" sap:label="COSTGROUP"/>
+                <Property Name="SAP_Description" Type="Edm.String" MaxLength="80" sap:label="Description"/>
+                <Property Name="COSTGROUPTEXT" Type="Edm.String" MaxLength="50" sap:label="COSTGROUPTEXT"/>
+                <Property Name="USEYN" Type="Edm.Boolean" sap:label="USEYN"/>
+                <Property Name="SAP_CreatedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_CreatedByUser_Text" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="내역" sap:quickinfo="기술 사용자 계정 내역" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Changed On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_LastChangedByUser_Text" sap:label="Last Changed By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="내역" sap:quickinfo="기술 사용자 계정 내역" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="YY1_ZCOSTGROUP_WBSType" sap:label="ZCOSTGROUP_WBS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SAP_UUID"/>
+                </Key>
+                <Property Name="SAP_UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="COMPANYCODE" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="COMPANYCODE_Text" sap:label="COMPANYCODE" sap:value-list="standard"/>
+                <Property Name="COMPANYCODE_Text" Type="Edm.String" MaxLength="25" sap:label="회사 이름" sap:quickinfo="회사 코드 또는 회사의 이름" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="WBSELEMENT" Type="Edm.String" MaxLength="24" sap:label="WBSELEMENT"/>
+                <Property Name="COSTGROUP_COMPANYCODE" Type="Edm.String" MaxLength="20" sap:label="COSTGROUP" sap:value-list="standard"/>
+                <Property Name="COSTGROUP_COSTGROUP" Type="Edm.String" MaxLength="8" sap:label="COSTGROUP" sap:value-list="standard"/>
+                <Property Name="USEYN" Type="Edm.Boolean" sap:label="USEYN"/>
+                <Property Name="SAP_CreatedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_CreatedByUser_Text" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="내역" sap:quickinfo="기술 사용자 계정 내역" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Changed On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_LastChangedByUser_Text" sap:label="Last Changed By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="내역" sap:quickinfo="기술 사용자 계정 내역" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_COMPANYCODE" Relationship="YY1_ZCOSTGROUP_WBS_CDS.assoc_FC7C2413BA139FE473B7BEEB004BCE54" FromRole="FromRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54" ToRole="ToRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54"/>
+                <NavigationProperty Name="to_COSTGROUP" Relationship="YY1_ZCOSTGROUP_WBS_CDS.assoc_F6FBA4058E20AFEF01F2050C6860AC0F" FromRole="FromRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F" ToRole="ToRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F"/>
+                <NavigationProperty Name="to_SAPSysAdminDataChangeUser" Relationship="YY1_ZCOSTGROUP_WBS_CDS.assoc_BA6AC54A1BB97493B38DCF8AE8186940" FromRole="FromRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940" ToRole="ToRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940"/>
+                <NavigationProperty Name="to_SAPSysAdminDataCreateUser" Relationship="YY1_ZCOSTGROUP_WBS_CDS.assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7" FromRole="FromRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7" ToRole="ToRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7"/>
+                <NavigationProperty Name="to__COSTGROUP" Relationship="YY1_ZCOSTGROUP_WBS_CDS.assoc_5AC05323E5E03A9BD35BB92F95C058DA" FromRole="FromRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA" ToRole="ToRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA"/>
+            </EntityType>
+            <Association Name="assoc_F6FBA4058E20AFEF01F2050C6860AC0F" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" Multiplicity="1" Role="FromRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F"/>
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType" Multiplicity="0..1" Role="ToRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F"/>
+            </Association>
+            <Association Name="assoc_BA6AC54A1BB97493B38DCF8AE8186940" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" Multiplicity="1" Role="FromRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940"/>
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.P_Scbo_UserType" Multiplicity="0..1" Role="ToRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940"/>
+            </Association>
+            <Association Name="assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" Multiplicity="1" Role="FromRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7"/>
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.P_Scbo_UserType" Multiplicity="0..1" Role="ToRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7"/>
+            </Association>
+            <Association Name="assoc_5AC05323E5E03A9BD35BB92F95C058DA" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" Multiplicity="1" Role="FromRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA"/>
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_VH_ZCOSTGROUPType" Multiplicity="0..1" Role="ToRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA"/>
+            </Association>
+            <Association Name="assoc_FC7C2413BA139FE473B7BEEB004BCE54" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" Multiplicity="1" Role="FromRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54"/>
+                <End Type="YY1_ZCOSTGROUP_WBS_CDS.I_CompanyCodeStdVHType" Multiplicity="0..1" Role="ToRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54">
+                        <PropertyRef Name="CompanyCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54">
+                        <PropertyRef Name="COMPANYCODE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="YY1_ZCOSTGROUP_WBS_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_CompanyCodeStdVH" EntityType="YY1_ZCOSTGROUP_WBS_CDS.I_CompanyCodeStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="P_Scbo_User" EntityType="YY1_ZCOSTGROUP_WBS_CDS.P_Scbo_UserType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="YY1_VH_ZCOSTGROUP" EntityType="YY1_ZCOSTGROUP_WBS_CDS.YY1_VH_ZCOSTGROUPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="YY1_ZCOSTGROUP" EntityType="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="YY1_ZCOSTGROUP_WBS" EntityType="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" sap:searchable="true" sap:content-version="1"/>
+                <AssociationSet Name="assoc_F6FBA4058E20AFEF01F2050C6860AC0F" Association="YY1_ZCOSTGROUP_WBS_CDS.assoc_F6FBA4058E20AFEF01F2050C6860AC0F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_WBS" Role="FromRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F"/>
+                    <End EntitySet="YY1_ZCOSTGROUP" Role="ToRole_assoc_F6FBA4058E20AFEF01F2050C6860AC0F"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5AC05323E5E03A9BD35BB92F95C058DA" Association="YY1_ZCOSTGROUP_WBS_CDS.assoc_5AC05323E5E03A9BD35BB92F95C058DA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_WBS" Role="FromRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA"/>
+                    <End EntitySet="YY1_VH_ZCOSTGROUP" Role="ToRole_assoc_5AC05323E5E03A9BD35BB92F95C058DA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_FC7C2413BA139FE473B7BEEB004BCE54" Association="YY1_ZCOSTGROUP_WBS_CDS.assoc_FC7C2413BA139FE473B7BEEB004BCE54" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_WBS" Role="FromRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54"/>
+                    <End EntitySet="I_CompanyCodeStdVH" Role="ToRole_assoc_FC7C2413BA139FE473B7BEEB004BCE54"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BA6AC54A1BB97493B38DCF8AE8186940" Association="YY1_ZCOSTGROUP_WBS_CDS.assoc_BA6AC54A1BB97493B38DCF8AE8186940" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_WBS" Role="FromRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940"/>
+                    <End EntitySet="P_Scbo_User" Role="ToRole_assoc_BA6AC54A1BB97493B38DCF8AE8186940"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7" Association="YY1_ZCOSTGROUP_WBS_CDS.assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_WBS" Role="FromRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7"/>
+                    <End EntitySet="P_Scbo_User" Role="ToRole_assoc_950BF84FD1CC7A921B0F7DD63EDC5AD7"/>
+                </AssociationSet>
+                <FunctionImport Name="YY1_ZCOSTGROUPSap_upsert" ReturnType="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType" EntitySet="YY1_ZCOSTGROUP" m:HttpMethod="POST">
+                    <Parameter Name="COMPANYCODE" Type="Edm.String" Mode="In" MaxLength="20" sap:label="길이 20 텍스트"/>
+                    <Parameter Name="COSTGROUP" Type="Edm.String" Mode="In" MaxLength="8" sap:label="길이 8 텍스트"/>
+                    <Parameter Name="SAP_Description" Type="Edm.String" Mode="In" MaxLength="80" sap:label="길이 80 텍스트"/>
+                    <Parameter Name="COSTGROUPTEXT" Type="Edm.String" Mode="In" MaxLength="50" sap:label="길이 50 텍스트"/>
+                    <Parameter Name="USEYN" Type="Edm.Boolean" Mode="In" sap:label="TRUE"/>
+                </FunctionImport>
+                <FunctionImport Name="YY1_ZCOSTGROUP_WBSSap_upsert" ReturnType="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" EntitySet="YY1_ZCOSTGROUP_WBS" m:HttpMethod="POST">
+                    <Parameter Name="COMPANYCODE" Type="Edm.String" Mode="In" MaxLength="4" sap:label="COMPANYCODE"/>
+                    <Parameter Name="WBSELEMENT" Type="Edm.String" Mode="In" MaxLength="24" sap:label="길이 24 텍스트"/>
+                    <Parameter Name="COSTGROUP_COMPANYCODE" Type="Edm.String" Mode="In" MaxLength="20" sap:label="길이 20 텍스트"/>
+                    <Parameter Name="COSTGROUP_COSTGROUP" Type="Edm.String" Mode="In" MaxLength="8" sap:label="길이 8 텍스트"/>
+                    <Parameter Name="USEYN" Type="Edm.Boolean" Mode="In" sap:label="TRUE"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType/COMPANYCODE" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code"/>
+                        <PropertyValue Property="CollectionPath" String="I_CompanyCodeStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COMPANYCODE"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType/COSTGROUP_COMPANYCODE" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="ZCOSTGROUP"/>
+                        <PropertyValue Property="CollectionPath" String="YY1_VH_ZCOSTGROUP"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COSTGROUP_COMPANYCODE"/>
+                                    <PropertyValue Property="ValueListProperty" String="COMPANYCODE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COSTGROUP_COSTGROUP"/>
+                                    <PropertyValue Property="ValueListProperty" String="COSTGROUP"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="COSTGROUPTEXT"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="USEYN"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="SAP_Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType/COSTGROUP_COSTGROUP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="ZCOSTGROUP"/>
+                        <PropertyValue Property="CollectionPath" String="YY1_VH_ZCOSTGROUP"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COSTGROUP_COMPANYCODE"/>
+                                    <PropertyValue Property="ValueListProperty" String="COMPANYCODE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COSTGROUP_COSTGROUP"/>
+                                    <PropertyValue Property="ValueListProperty" String="COSTGROUP"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="COSTGROUPTEXT"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="USEYN"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="SAP_Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBS_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_VH_ZCOSTGROUPType/COMPANYCODE" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_VH_ZCOSTGROUPType/COSTGROUP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType/COMPANYCODE" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType/COSTGROUP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType/WBSELEMENT" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBS_CDS_Entities/YY1_ZCOSTGROUP_WBS" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_COMPANYCODE"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_COSTGROUP"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="true"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_SAPSysAdminDataChangeUser"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_SAPSysAdminDataCreateUser"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to__COSTGROUP"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUPType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>COSTGROUP</PropertyPath>
+                        <PropertyPath>COMPANYCODE</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_WBS_CDS.YY1_ZCOSTGROUP_WBSType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>WBSELEMENT</PropertyPath>
+                        <PropertyPath>COMPANYCODE</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZCOSTGROUP_WBS_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZCOSTGROUP_WBS_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

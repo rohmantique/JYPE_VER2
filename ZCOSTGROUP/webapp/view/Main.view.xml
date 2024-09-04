@@ -1,0 +1,99 @@
+<mvc:View controllerName="zcostgroup.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:table="sap.ui.table"
+	xmlns:u="sap.ui.unified">
+    <Page id="page" title="{i18n>title}" showHeader="false" enableScrolling="false" class="sapUiContentPadding">
+        <content>
+            <fb:FilterBar id="iFilterBar" reset="onReset" search="onSearch()" showRestoreButton="true" useToolbar="false">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="COMPANYCODE" label="{i18n>COMPANYCODE}" labelTooltip="{i18n>COMPANYCODE}" visibleInFilterBar="true">
+						<fb:control>
+                            <MultiInput
+                                id="fbCOMPANYCODE"
+                                width="60%"
+                                valueHelpOnly="true"
+                                valueHelpRequest=".onValueHelpRequested($event,'fbCOMPANYCODE')"
+                                suggestionRows="{
+                                    path: 'oCOMPANYCODE>/'
+                                }">
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{oCOMPANYCODE>CompanyCode}" />
+                                        <Label text="{oCOMPANYCODE>CompanyCodeName}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="COSTGROUP" label="{i18n>COSTGROUP}" labelTooltip="{i18n>COSTGROUP}" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="fbCOSTGROUP" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            <table:Table
+                id="iCOSTGROUPList"
+                rowMode="Auto"
+                selectionMode="MultiToggle"
+                selectionBehavior="Row"
+                rows="{
+                    path:'oZCOSTGROUP>/'
+                }"
+                >
+                <table:extension>
+                    <Toolbar>
+                        <Title text="{i18n>COSTGROUPCnt} ( {oLayout>/tableCnt} )" level="H2"/>
+                        <ToolbarSeparator></ToolbarSeparator>
+                        <u:FileUploader id="iFileUploader" buttonText="{i18n>BTN_FILEUPLOADER}" visible="{oLayout>/uploaderVisible}" uploadComplete="excelHandleUploadComplete"/>
+                        <Button icon="sap-icon://excel-attachment" tooltip="Template File" visible="{oLayout>/uploaderVisible}" text="{i18n>BTN_TEMP}" press="excelTempletDown" />
+                        <Button icon="sap-icon://upload" text="{i18n>BTN_UPLOAD}" tooltip="Upload File" visible="{oLayout>/uploaderVisible}" press="excelHandleUploadPress"/>
+                        <ToolbarSpacer></ToolbarSpacer>
+                        <Button text="{i18n>BTN_INSERT}" press="onInsertRow" />
+                        <Button text="{i18n>BTN_DELETE}" press="onPreDelete" />
+                        <Button icon="sap-icon://save" text="{i18n>BTN_SAVE}" press="onPreSave"/>
+                        <Button icon="sap-icon://excel-attachment" text="{i18n>BTN_EXCEL_UP}" tooltip="Excel Import" press="excelImport"/>
+                        <Button icon="sap-icon://excel-attachment" text="{i18n>BTN_EXCEL_DOWN}" visible="{oLayout>/exportVisible}" tooltip="Excel export" press="excelExport"/>
+                    </Toolbar>
+                </table:extension>
+                <table:columns>
+                    <table:Column width="100px" filterProperty="COMPANYCODE" sortProperty="COMPANYCODE">
+                        <Label text="{i18n>COMPANYCODE}" />
+                        <table:template>
+                            <Input value="{oZCOSTGROUP>COMPANYCODE}" editable="true" valueState="None"
+                            showValueHelp="true" valueHelpRequest="onValueHelpDialog($event, 'COMPANYCODE', 'COMPANYNAME')"
+                            change="onCodeListCheck($event, 'COMPANYCODE', 'COMPANYNAME')"/>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="150px" filterProperty="COMPANYNAME" sortProperty="COMPANYNAME">
+                        <Label text="{i18n>COMPANYNAME}" />
+                        <table:template>
+                            <Input value="{oZCOSTGROUP>COMPANYNAME}" editable="false" valueState="None" enabled="false"/>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="150px" filterProperty="COSTGROUP" sortProperty="COSTGROUP">
+                        <Label text="{i18n>COSTGROUP}" />
+                        <table:template>
+                            <Input value="{oZCOSTGROUP>COSTGROUP}" editable="true" valueState="None"/>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="300px" filterProperty="COSTGROUPTEXT" sortProperty="COSTGROUPTEXT">
+                        <Label text="{i18n>COSTGROUPTEXT}" />
+                        <table:template>
+                            <Input value="{oZCOSTGROUP>COSTGROUPTEXT}" editable="true" valueState="None"/>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="120px" filterProperty="USEYN" sortProperty="USEYN">
+                        <Label text="{i18n>USEYN}" />
+                        <table:template>
+                            <CheckBox text="{i18n>USEYN}" selected="{oZCOSTGROUP>USEYN}" />
+                        </table:template>
+                    </table:Column>
+                </table:columns>
+            </table:Table>
+        </content>
+    </Page>
+</mvc:View>

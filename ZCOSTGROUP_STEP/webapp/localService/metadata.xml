@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YY1_ZCOSTGROUP_STEP_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_CompanyCodeStdVHType" sap:label="Company Code" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="CompanyCodeName" sap:label="Company Code"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/>
+            </EntityType>
+            <EntityType Name="I_GLAccountStdVHType" sap:label="General Ledger Account" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GLAccount"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="GLAccount" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="GLAccount_Text" sap:label="G/L Account" sap:quickinfo="G/L Account Number"/>
+                <Property Name="GLAccount_Text" Type="Edm.String" MaxLength="20" sap:label="G/L Account Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="GLAccountExternal" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="G/L Acct External ID" sap:quickinfo="G/L Account Number"/>
+                <Property Name="AlternativeGLAccount" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Alternative G/L Account" sap:quickinfo="Alternative G/L Account Number In Company Code"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Chart of Accounts"/>
+                <Property Name="GLAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Account Group" sap:quickinfo="G/L Account Group"/>
+                <Property Name="GLAccountType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="G/L Account Type" sap:quickinfo="Type of a General Ledger Account"/>
+                <Property Name="ReconciliationAccountType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Reconcil. ID" sap:quickinfo="Account Is Reconciliation Account"/>
+            </EntityType>
+            <EntityType Name="P_Scbo_UserType" sap:label="User" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="name"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="User" sap:quickinfo="User Name in User Master Record"/>
+                <Property Name="description" Type="Edm.String" MaxLength="80" sap:label="Description" sap:quickinfo="Description of the Technical User Account"/>
+            </EntityType>
+            <EntityType Name="YY1_ZCOSTGROUP_STEPType" sap:label="ZCOSTGROUP_STEP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SAP_UUID"/>
+                </Key>
+                <Property Name="SAP_UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+                <Property Name="COMPANYCODE" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="COMPANYCODE_Text" sap:label="COMPANYCODE" sap:value-list="standard"/>
+                <Property Name="COMPANYCODE_Text" Type="Edm.String" MaxLength="25" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP"/>
+                <Property Name="GLACCOUNT_BUKRS" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="GLACCOUNT" sap:value-list="standard"/>
+                <Property Name="GLACCOUNT_SAKNR" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="to_GLACCOUNT/GLAccount_Text" sap:label="GLACCOUNT" sap:value-list="standard"/>
+                <Property Name="USEYN" Type="Edm.Boolean" sap:label="USEYN"/>
+                <Property Name="SAP_CreatedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_CreatedByUser_Text" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_CreatedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="Description" sap:quickinfo="Description of the Technical User Account" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Changed On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="SAP_LastChangedByUser_Text" sap:label="Last Changed By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SAP_LastChangedByUser_Text" Type="Edm.String" MaxLength="80" sap:label="Description" sap:quickinfo="Description of the Technical User Account" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_COMPANYCODE" Relationship="YY1_ZCOSTGROUP_STEP_CDS.assoc_4405AC2C47CCADCC09C9D71140962F72" FromRole="FromRole_assoc_4405AC2C47CCADCC09C9D71140962F72" ToRole="ToRole_assoc_4405AC2C47CCADCC09C9D71140962F72"/>
+                <NavigationProperty Name="to_GLACCOUNT" Relationship="YY1_ZCOSTGROUP_STEP_CDS.assoc_FEE63615125717B2DC1C5BC2F33A399B" FromRole="FromRole_assoc_FEE63615125717B2DC1C5BC2F33A399B" ToRole="ToRole_assoc_FEE63615125717B2DC1C5BC2F33A399B"/>
+                <NavigationProperty Name="to_SAPSysAdminDataChangeUser" Relationship="YY1_ZCOSTGROUP_STEP_CDS.assoc_1065A39C8BE9D07FB312491776151171" FromRole="FromRole_assoc_1065A39C8BE9D07FB312491776151171" ToRole="ToRole_assoc_1065A39C8BE9D07FB312491776151171"/>
+                <NavigationProperty Name="to_SAPSysAdminDataCreateUser" Relationship="YY1_ZCOSTGROUP_STEP_CDS.assoc_921652921BE80E6A5FCCF59EF2169004" FromRole="FromRole_assoc_921652921BE80E6A5FCCF59EF2169004" ToRole="ToRole_assoc_921652921BE80E6A5FCCF59EF2169004"/>
+            </EntityType>
+            <Association Name="assoc_FEE63615125717B2DC1C5BC2F33A399B" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" Multiplicity="1" Role="FromRole_assoc_FEE63615125717B2DC1C5BC2F33A399B"/>
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.I_GLAccountStdVHType" Multiplicity="0..1" Role="ToRole_assoc_FEE63615125717B2DC1C5BC2F33A399B"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_FEE63615125717B2DC1C5BC2F33A399B">
+                        <PropertyRef Name="GLAccount"/>
+                        <PropertyRef Name="CompanyCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_FEE63615125717B2DC1C5BC2F33A399B">
+                        <PropertyRef Name="GLACCOUNT_SAKNR"/>
+                        <PropertyRef Name="GLACCOUNT_BUKRS"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_1065A39C8BE9D07FB312491776151171" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" Multiplicity="1" Role="FromRole_assoc_1065A39C8BE9D07FB312491776151171"/>
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.P_Scbo_UserType" Multiplicity="0..1" Role="ToRole_assoc_1065A39C8BE9D07FB312491776151171"/>
+            </Association>
+            <Association Name="assoc_921652921BE80E6A5FCCF59EF2169004" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" Multiplicity="1" Role="FromRole_assoc_921652921BE80E6A5FCCF59EF2169004"/>
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.P_Scbo_UserType" Multiplicity="0..1" Role="ToRole_assoc_921652921BE80E6A5FCCF59EF2169004"/>
+            </Association>
+            <Association Name="assoc_4405AC2C47CCADCC09C9D71140962F72" sap:content-version="1">
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" Multiplicity="1" Role="FromRole_assoc_4405AC2C47CCADCC09C9D71140962F72"/>
+                <End Type="YY1_ZCOSTGROUP_STEP_CDS.I_CompanyCodeStdVHType" Multiplicity="0..1" Role="ToRole_assoc_4405AC2C47CCADCC09C9D71140962F72"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_4405AC2C47CCADCC09C9D71140962F72">
+                        <PropertyRef Name="CompanyCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_4405AC2C47CCADCC09C9D71140962F72">
+                        <PropertyRef Name="COMPANYCODE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="YY1_ZCOSTGROUP_STEP_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_CompanyCodeStdVH" EntityType="YY1_ZCOSTGROUP_STEP_CDS.I_CompanyCodeStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="I_GLAccountStdVH" EntityType="YY1_ZCOSTGROUP_STEP_CDS.I_GLAccountStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="P_Scbo_User" EntityType="YY1_ZCOSTGROUP_STEP_CDS.P_Scbo_UserType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="YY1_ZCOSTGROUP_STEP" EntityType="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" sap:searchable="true" sap:content-version="1"/>
+                <AssociationSet Name="assoc_1065A39C8BE9D07FB312491776151171" Association="YY1_ZCOSTGROUP_STEP_CDS.assoc_1065A39C8BE9D07FB312491776151171" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_STEP" Role="FromRole_assoc_1065A39C8BE9D07FB312491776151171"/>
+                    <End EntitySet="P_Scbo_User" Role="ToRole_assoc_1065A39C8BE9D07FB312491776151171"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_921652921BE80E6A5FCCF59EF2169004" Association="YY1_ZCOSTGROUP_STEP_CDS.assoc_921652921BE80E6A5FCCF59EF2169004" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_STEP" Role="FromRole_assoc_921652921BE80E6A5FCCF59EF2169004"/>
+                    <End EntitySet="P_Scbo_User" Role="ToRole_assoc_921652921BE80E6A5FCCF59EF2169004"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_FEE63615125717B2DC1C5BC2F33A399B" Association="YY1_ZCOSTGROUP_STEP_CDS.assoc_FEE63615125717B2DC1C5BC2F33A399B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_STEP" Role="FromRole_assoc_FEE63615125717B2DC1C5BC2F33A399B"/>
+                    <End EntitySet="I_GLAccountStdVH" Role="ToRole_assoc_FEE63615125717B2DC1C5BC2F33A399B"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_4405AC2C47CCADCC09C9D71140962F72" Association="YY1_ZCOSTGROUP_STEP_CDS.assoc_4405AC2C47CCADCC09C9D71140962F72" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_ZCOSTGROUP_STEP" Role="FromRole_assoc_4405AC2C47CCADCC09C9D71140962F72"/>
+                    <End EntitySet="I_CompanyCodeStdVH" Role="ToRole_assoc_4405AC2C47CCADCC09C9D71140962F72"/>
+                </AssociationSet>
+                <FunctionImport Name="YY1_ZCOSTGROUP_STEPSap_upsert" ReturnType="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" EntitySet="YY1_ZCOSTGROUP_STEP" m:HttpMethod="POST">
+                    <Parameter Name="COMPANYCODE" Type="Edm.String" Mode="In" MaxLength="4" sap:label="COMPANYCODE"/>
+                    <Parameter Name="STEP" Type="Edm.String" Mode="In" MaxLength="2" sap:label="Text of length 2"/>
+                    <Parameter Name="GLACCOUNT_BUKRS" Type="Edm.String" Mode="In" MaxLength="4" sap:label="GLACCOUNT_BUKRS"/>
+                    <Parameter Name="GLACCOUNT_SAKNR" Type="Edm.String" Mode="In" MaxLength="10" sap:label="GLACCOUNT_SAKNR"/>
+                    <Parameter Name="USEYN" Type="Edm.Boolean" Mode="In" sap:label="TRUE"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType/COMPANYCODE" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code"/>
+                        <PropertyValue Property="CollectionPath" String="I_CompanyCodeStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="COMPANYCODE"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType/GLACCOUNT_BUKRS" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="General Ledger Account"/>
+                        <PropertyValue Property="CollectionPath" String="I_GLAccountStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLACCOUNT_SAKNR"/>
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLACCOUNT_BUKRS"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType/GLACCOUNT_SAKNR" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="General Ledger Account"/>
+                        <PropertyValue Property="CollectionPath" String="I_GLAccountStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLACCOUNT_SAKNR"/>
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLACCOUNT_BUKRS"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEP_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType/STEP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEP_CDS_Entities/YY1_ZCOSTGROUP_STEP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_COMPANYCODE"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_GLACCOUNT"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_SAPSysAdminDataChangeUser"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_SAPSysAdminDataCreateUser"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZCOSTGROUP_STEP_CDS.YY1_ZCOSTGROUP_STEPType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>GLACCOUNT_SAKNR</PropertyPath>
+                        <PropertyPath>GLACCOUNT_BUKRS</PropertyPath>
+                        <PropertyPath>STEP</PropertyPath>
+                        <PropertyPath>COMPANYCODE</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZCOSTGROUP_STEP_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZCOSTGROUP_STEP_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

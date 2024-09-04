@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YY1_MONTHLYREPORT001_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="YY1_MONTHLYREPORT001Type" sap:label="채권연령분석" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:filterable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="TotaledProperties" Type="Edm.String" sap:aggregation-role="totaled-properties-list" sap:is-annotation="true" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Net Due Date" sap:quickinfo="Due Date for Net Payment" sap:creatable="false" sap:updatable="false" sap:semantics="yearmonthday"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" MaxLength="10" sap:label="Net Due Date (Description)" sap:quickinfo="Due Date for Net Payment" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Customer" sap:quickinfo="Customer Number" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:semantics="yearmonthday"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" MaxLength="10" sap:label="Clearing Date (Description)" sap:quickinfo="Clearing Date" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:semantics="yearmonthday"/>
+                <Property Name="PostingDate_T" Type="Edm.String" MaxLength="10" sap:label="Posting Date (Description)" sap:quickinfo="Posting Date" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:quickinfo="Journal Entry Posting View Item" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="AmountInCompanyCodeCurrency" Type="Edm.Decimal" Precision="42" Scale="2" sap:aggregation-role="measure" sap:filterable="false" sap:text="AmountInCompanyCodeCurrency_F" sap:unit="CompanyCodeCurrency" sap:updatable="false" sap:label="Amount in Company Code Currency" sap:creatable="false"/>
+                <Property Name="AmountInCompanyCodeCurrency_F" Type="Edm.String" MaxLength="60" sap:label="Amount in Company Code Currency (Formatted)" sap:quickinfo="Amount in Company Code Currency" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCode" sap:label="Company Code (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode_ID"/>
+                </Key>
+                <Property Name="CompanyCode_ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:text="CompanyCodeText" sap:label="Company Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeText" Type="Edm.String" sap:label="Company Code (Description)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeResult" sap:label="Company Code (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Company Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalYear" sap:label="Fiscal Year (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalYear_ID"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="FiscalYear_ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Fiscal Year (Company Code)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalYearResult" sap:label="Fiscal Year (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalYear"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Fiscal Year (Company Code)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="AccountingDocument" sap:label="Journal Entry (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AccountingDocument_ID"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="FiscalYear"/>
+                </Key>
+                <Property Name="AccountingDocument_ID" Type="Edm.String" Nullable="false" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Journal Entry (Company Code)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Journal Entry (Fiscal Year)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="AccountingDocumentResult" sap:label="Journal Entry (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AccountingDocument"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="FiscalYear"/>
+                </Key>
+                <Property Name="AccountingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Journal Entry (Company Code)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Journal Entry (Fiscal Year)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="Customer" sap:label="Customer (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer_ID"/>
+                </Key>
+                <Property Name="Customer_ID" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="CustomerText" sap:label="Customer" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerText" Type="Edm.String" sap:label="Customer (Description)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CustomerResult" sap:label="Customer (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeCurrency" sap:label="Company Code Currency (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCodeCurrency_ID"/>
+                </Key>
+                <Property Name="CompanyCodeCurrency_ID" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="CompanyCodeCurrencyText" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCodeCurrencyText" Type="Edm.String" sap:label="Company Code Currency (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeCurrencyResult" sap:label="Company Code Currency (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCodeCurrency"/>
+                </Key>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="GLAccount" sap:label="G/L Account (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GLAccount_ID"/>
+                    <PropertyRef Name="ChartOfAccounts"/>
+                </Key>
+                <Property Name="GLAccount_ID" Type="Edm.String" Nullable="false" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:text="GLAccountText" sap:label="G/L Account" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GLAccountText" Type="Edm.String" sap:label="G/L Account (Description)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="G/L Account (Chart of Accounts)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="GLAccountResult" sap:label="G/L Account (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GLAccount"/>
+                    <PropertyRef Name="ChartOfAccounts"/>
+                </Key>
+                <Property Name="GLAccount" Type="Edm.String" Nullable="false" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="G/L Account (Chart of Accounts)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="ChartOfAccounts" sap:label="Chart of Accounts (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ChartOfAccounts_ID"/>
+                </Key>
+                <Property Name="ChartOfAccounts_ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:text="ChartOfAccountsText" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChartOfAccountsText" Type="Edm.String" sap:label="Chart of Accounts (Description)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ChartOfAccountsResult" sap:label="Chart of Accounts (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ChartOfAccounts"/>
+                </Key>
+                <Property Name="ChartOfAccounts" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" MaxLength="10" sap:super-ordinate="CompanyCode" sap:label="Journal Entry" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="AccountingDocumentItem" sap:label="Posting View Item (Master Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AccountingDocumentItem_ID"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="AccountingDocument"/>
+                    <PropertyRef Name="FiscalYear"/>
+                </Key>
+                <Property Name="AccountingDocumentItem_ID" Type="Edm.String" Nullable="false" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Posting View Item (Company Code)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Posting View Item (Journal Entry)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Posting View Item (Fiscal Year)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="AccountingDocumentItemResult" sap:label="Posting View Item (Booked Data)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AccountingDocumentItem"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="AccountingDocument"/>
+                    <PropertyRef Name="FiscalYear"/>
+                </Key>
+                <Property Name="AccountingDocumentItem" Type="Edm.String" Nullable="false" MaxLength="3" sap:super-ordinate="CompanyCode" sap:label="Posting View Item" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Posting View Item (Company Code)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AccountingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Posting View Item (Journal Entry)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Posting View Item (Fiscal Year)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetDueDate" Type="Edm.String" MaxLength="10" sap:text="NetDueDate_T" sap:label="Net Due Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="NetDueDate_T" Type="Edm.String" sap:label="Net Due Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate" Type="Edm.String" MaxLength="10" sap:text="ClearingDate_T" sap:label="Clearing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ClearingDate_T" Type="Edm.String" sap:label="Clearing Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.String" MaxLength="10" sap:text="PostingDate_T" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PostingDate_T" Type="Edm.String" sap:label="Posting Date (Description)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="Company Code Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="GLAccount" Type="Edm.String" MaxLength="10" sap:super-ordinate="ChartOfAccounts" sap:label="G/L Account" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:label="Chart of Accounts" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="ODataQueryAdditionalMetadata" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ODataQueryMetadata"/>
+                </Key>
+                <Property Name="ODataQueryMetadata" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ODataQueryMetadataValue_Current" Type="Edm.String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ODataQueryMetadataValueAtDefine" Type="Edm.String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="YY1_MONTHLYREPORT001_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="YY1_MONTHLYREPORT001" EntityType="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCode" EntityType="YY1_MONTHLYREPORT001_CDS.CompanyCode" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeResults" EntityType="YY1_MONTHLYREPORT001_CDS.CompanyCodeResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalYear" EntityType="YY1_MONTHLYREPORT001_CDS.FiscalYear" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalYearResults" EntityType="YY1_MONTHLYREPORT001_CDS.FiscalYearResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AccountingDocument" EntityType="YY1_MONTHLYREPORT001_CDS.AccountingDocument" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AccountingDocumentResults" EntityType="YY1_MONTHLYREPORT001_CDS.AccountingDocumentResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Customer" EntityType="YY1_MONTHLYREPORT001_CDS.Customer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CustomerResults" EntityType="YY1_MONTHLYREPORT001_CDS.CustomerResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeCurrency" EntityType="YY1_MONTHLYREPORT001_CDS.CompanyCodeCurrency" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeCurrencyResults" EntityType="YY1_MONTHLYREPORT001_CDS.CompanyCodeCurrencyResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="GLAccount" EntityType="YY1_MONTHLYREPORT001_CDS.GLAccount" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="GLAccountResults" EntityType="YY1_MONTHLYREPORT001_CDS.GLAccountResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ChartOfAccounts" EntityType="YY1_MONTHLYREPORT001_CDS.ChartOfAccounts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ChartOfAccountsResults" EntityType="YY1_MONTHLYREPORT001_CDS.ChartOfAccountsResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AccountingDocumentItem" EntityType="YY1_MONTHLYREPORT001_CDS.AccountingDocumentItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AccountingDocumentItemResults" EntityType="YY1_MONTHLYREPORT001_CDS.AccountingDocumentItemResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AdditionalMetadata" EntityType="YY1_MONTHLYREPORT001_CDS.ODataQueryAdditionalMetadata" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/CompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="CompanyCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/FiscalYear" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Fiscal Year ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="FiscalYear"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYear_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYearText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/AccountingDocument" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Journal Entry ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="AccountingDocument"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AccountingDocument"/>
+                                    <PropertyValue Property="ValueListProperty" String="AccountingDocument_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AccountingDocumentText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYear"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Customer ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="Customer"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+                                    <PropertyValue Property="ValueListProperty" String="Customer_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CustomerText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/CompanyCodeCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code Currency ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="CompanyCodeCurrency"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrency_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrencyText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/GLAccount" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="G/L Account ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="GLAccount"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GLAccount"/>
+                                    <PropertyValue Property="ValueListProperty" String="GLAccount_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GLAccountText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ChartOfAccounts"/>
+                                    <PropertyValue Property="ValueListProperty" String="ChartOfAccounts"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/ChartOfAccounts" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Chart of Accounts ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="ChartOfAccounts"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ChartOfAccounts"/>
+                                    <PropertyValue Property="ValueListProperty" String="ChartOfAccounts_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ChartOfAccountsText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_MONTHLYREPORT001_CDS.YY1_MONTHLYREPORT001Type/AccountingDocumentItem" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Posting View Item ( Master Data )"/>
+                        <PropertyValue Property="CollectionPath" String="AccountingDocumentItem"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AccountingDocumentItem"/>
+                                    <PropertyValue Property="ValueListProperty" String="AccountingDocumentItem_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AccountingDocumentItemText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AccountingDocument"/>
+                                    <PropertyValue Property="ValueListProperty" String="AccountingDocument"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYear"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_MONTHLYREPORT001_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_MONTHLYREPORT001_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

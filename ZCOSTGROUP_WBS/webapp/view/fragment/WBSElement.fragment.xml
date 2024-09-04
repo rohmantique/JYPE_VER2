@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+   xmlns="sap.ui.comp.valuehelpdialog"
+   xmlns:m="sap.m"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:core="sap.ui.core">
+   <ValueHelpDialog
+      title="{i18n>WBSELEMENT}"
+      ok=".onValueHelpOkPress"
+      cancel=".onValueHelpCancelPress"
+      afterClose=".onValueHelpAfterClose"
+      supportRanges="false"
+      key="ProjectElement"
+      descriptionKey="ProjectElementDescription">
+      <filterBar>
+         <fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+            <fb:filterGroupItems>
+               <fb:FilterGroupItem
+                  groupName="__$INTERNAL$"
+                  name="ProjectElement"
+                  label="{i18n>WBSELEMENT}"
+                  visibleInFilterBar="true">
+                  <fb:control>
+                     <m:Input name="ProjectElement" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+               <fb:FilterGroupItem
+                  groupName="__$INTERNAL$"
+                  name="ProjectElementDescription"
+                  label="{i18n>WBSELEMENTTEXT}"
+                  visibleInFilterBar="true">
+                  <fb:control>
+                     <m:Input name="ProjectElementDescription" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+         </fb:FilterBar>
+      </filterBar>
+   </ValueHelpDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,170 @@
+<mvc:View controllerName="zaccountdoc.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:table="sap.ui.table"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:mdcField="sap.ui.mdc.field"
+    xmlns:mdcValueHelp="sap.ui.mdc.valuehelp"
+    xmlns:mdcValueHelpContent="sap.ui.mdc.valuehelp.content"
+    xmlns:form="sap.ui.layout.form"    
+	xmlns:u="sap.ui.unified">
+    <Page id="page" title="{i18n>title}" showHeader="false" class="sapUiContentPadding">
+        <content>                
+            <fb:FilterBar id="iFilterBar" reset="onReset" search="onSearch()" showRestoreButton="true" useToolbar="false">
+                
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>fbCOMPANYCODE}" labelTooltip="{i18n>fbCOMPANYCODE}" visibleInFilterBar="true">
+						<fb:control>
+							<MultiComboBox
+								id="fbCOMPANYCODE"
+								showSecondaryValues="true"
+								items="{oCOMPANYCODE>/}">
+								<core:ListItem key="{oCOMPANYCODE>CompanyCode}" text="{oCOMPANYCODE>CompanyCodeName}" 
+								additionalText="{oCOMPANYCODE>CompanyCode}" />
+							</MultiComboBox>
+						</fb:control>
+					</fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="Customer" label="{i18n>fbCUSTOMER}" labelTooltip="{i18n>fbCUSTOMER}" visibleInFilterBar="true">
+                        <fb:control>
+                            <MultiInput
+                                id="fbCUSTOMER"
+                                width="60%"
+                                valueHelpRequest=".onValueHelpRequested"
+                                liveChange="onLiveChange"
+                                suggestionRows="{
+                                    path: 'oCUSTOMER>/'
+                                }">
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{oCUSTOMER>Customer}" />
+                                        <Label text="{oCUSTOMER>CustomerName}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="GLAccount" label="{i18n>fbGLACCOUNT}" labelTooltip="{i18n>fbGLACCOUNT}" visibleInFilterBar="true">
+                        <fb:control>
+                            <MultiInput
+                                id="fbGLACCOUNT"
+                                width="60%"
+                                valueHelpRequest=".onValueHelpRequestedGL"
+                                suggestionRows="{
+                                    path: 'oGLACCOUNT>/'
+                                }">
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <Label text="{oGLACCOUNT>GLAccount}" />
+                                        <Label text="{oGLACCOUNT>GLAccountName}" />
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </MultiInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>                    
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="StrPeriod" label="{i18n>fbStrPeriod_s}" labelTooltip="{i18n>fbStrPeriod_s}" visibleInFilterBar="true" mandatory="true">
+                        <fb:control>
+                          	<DatePicker
+                                id="fbStrPeriod_s"
+                                value="{
+                                    'path':'/StrPeriod_s',
+                                    'type':'sap.ui.model.type.Date',
+                                    'formatOptions': {
+                                        'pattern': 'y-MM'
+                                    }
+                                }"
+                                showCurrentDateButton="true"/>
+                        </fb:control>
+                    </fb:FilterGroupItem>           
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndPeriod" label="{i18n>fbStrPeriod_e}" labelTooltip="{i18n>fbStrPeriod_e}" visibleInFilterBar="true">
+                        <fb:control>
+                          	<DatePicker
+                                id="fbStrPeriod_e"
+                                value="{
+                                    'path':'/StrPeriod_e',
+                                    'type':'sap.ui.model.type.Date',
+                                    'formatOptions': {
+                                        'pattern': 'y-MM'
+                                    }
+                                }"
+                                showCurrentDateButton="true"/>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="ZeroExcept" label="{i18n>fbZeroExcept}" labelTooltip="{i18n>fbZeroExcept}" visibleInFilterBar="true">
+                        <fb:control>
+                            <CheckBox id="fbZeroExcept" />   
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="PeriodReverse"  label="{i18n>fbPeriodReverse}" labelTooltip="{i18n>fbPeriodReverse}" visibleInFilterBar="true">
+                        <fb:control>
+                            <CheckBox id="fbPeriodReverse"/>       
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+ 
+            
+            <table:Table
+                id="iACCOUNTDOCList"
+                visibleRowCount="18"
+                selectionMode="None"
+                selectionBehavior="Row"
+                rows="{
+                    path:'oZCOSTGROUP>/',
+                    sorter : [{path : 'Customer'}]
+                }"
+                cellClick="onNavigateToStandard"
+                >
+                <table:extension>
+                    <Toolbar>
+                        <Title text="{i18n>GLACCOUNTCNT} ( {oLayout>/tableCnt} )" level="H2"/>
+                        <ToolbarSeparator></ToolbarSeparator>                   
+                        <ToolbarSpacer></ToolbarSpacer>     
+                        <Button icon="sap-icon://excel-attachment" text="{i18n>BTN_EXCEL_DOWN}" visible="{oLayout>/exportVisible}" tooltip="Excel export" press="excelExport"/>
+                    </Toolbar>
+                </table:extension>
+                <table:columns>
+                    <table:Column width="100px" hAlign="Center">
+                        <Label text="{i18n>CUSTOMER}"/>
+                        <table:template>
+                            <HBox justifyContent="Start">
+			                    <Text text="{oZCOSTGROUP>Customer}" wrapping="false"/>                        
+                            </HBox>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="200px" hAlign="Center">
+                        <Label text="{i18n>CUSTOMERNAME}" />
+                        <table:template>
+                            <HBox justifyContent="Start">
+			                    <Text text="{oZCOSTGROUP>BusinessPartnerName1}" wrapping="false" />         
+                            </HBox>                                    
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="200px" hAlign="Center">
+                        <Label text="{i18n>GLACCOUNTNAME}" />
+                        <table:template>
+                            <HBox justifyContent="Start">
+			                    <Text text="{oZCOSTGROUP>GLAccountName}" wrapping="false" />          
+                            </HBox>
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="150px" hAlign="Center">
+                        <Label text="{i18n>BALANCE}" />
+                        <table:template>
+                            <HBox justifyContent="End">
+			                    <Text text="{
+                                    parts: [ {path: 'oZCOSTGROUP>AmountInCompanyCodeCurrency'},
+                                            {path: 'oZCOSTGROUP>CompanyCodeCurrency'}
+                                        ],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatter: '.formatterCurrency'
+                                }"/>
+                            </HBox>
+                        </table:template>
+                    </table:Column>                      
+                </table:columns>
+            </table:Table>
+        </content>
+    </Page>
+</mvc:View>

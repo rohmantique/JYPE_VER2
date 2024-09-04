@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+   xmlns="sap.ui.comp.valuehelpdialog"
+   xmlns:m="sap.m"
+   xmlns:fb="sap.ui.comp.filterbar"
+   xmlns:core="sap.ui.core">
+   <ValueHelpDialog
+      title="{i18n>COSTGROUP}"
+      ok=".onValueHelpOkPress"
+      cancel=".onValueHelpCancelPress"
+      afterClose=".onValueHelpAfterClose"
+      supportRanges="false"
+      key="COSTGROUP"
+      descriptionKey="COSTGROUPTEXT">
+      <filterBar>
+         <fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+            <fb:filterGroupItems>
+               <fb:FilterGroupItem
+                  groupName="__$INTERNAL$"
+                  name="COSTGROUP"
+                  label="{i18n>COSTGROUP}"
+                  visibleInFilterBar="true">
+                  <fb:control>
+                     <m:Input name="COSTGROUP" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+               <fb:FilterGroupItem
+                  groupName="__$INTERNAL$"
+                  name="COSTGROUPTEXT"
+                  label="{i18n>COSTGROUPTEXT}"
+                  visibleInFilterBar="true">
+                  <fb:control>
+                     <m:Input name="COSTGROUPTEXT" />
+                  </fb:control>
+               </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+         </fb:FilterBar>
+      </filterBar>
+   </ValueHelpDialog>
+</core:FragmentDefinition>

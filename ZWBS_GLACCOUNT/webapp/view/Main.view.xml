@@ -1,0 +1,272 @@
+<mvc:View
+    controllerName="wbsglaccount.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:table="sap.ui.table"
+	xmlns:u="sap.ui.unified"
+    xmlns:layout="sap.ui.layout"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:sap.ui.fl="sap.ui.fl"
+    xmlns:sap.ui.dt="sap.ui.dt"
+    xmlns:vm="sap.ui.fl.variants"
+>   
+	<f:DynamicPage id="page" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}" showFooter="false">
+            <f:header>
+                <f:DynamicPageHeader pinnable="true">
+                    <fb:FilterBar id="iFilterBar" reset="onReset" search="onSearch()" showRestoreButton="true" useToolbar="false">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>COMPANYCODE}" labelTooltip="{i18n>COMPANYCODE}" visibleInFilterBar="true" mandatory="true">
+                                <fb:control>
+                                   <Select id="fbCompanyCode" 
+                                        showSecondaryValues="true"
+                                        items="{path: 'oCOMPANYCODE>/'}"
+                                        selectedKey="{oCompanyCode>/CompanyCode}"
+                                        change="onCodeListCheck($event, 'CompanyCode')">
+                                    <core:Item key="{oCOMPANYCODE>CompanyCode}" text="{oCOMPANYCODE>CompanyCodeName}({oCOMPANYCODE>CompanyCode})" />
+                                </Select>
+
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="FiscalYear" label="{i18n>FISCAL_YEAR}" labelTooltip="{i18n>FISCAL_YEAR}" visibleInFilterBar="true" mandatory="true">
+                                <fb:control>
+                                    <DatePicker id="fbFiscalYear" valueFormat="yyyy" displayFormat="yyyy" change="onCodeListCheck($event, 'FiscalYear')" value="{path: '/FiscalYear', type: 'sap.ui.model.type.String', formatOptions: { pattern: 'yyyy' }}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="FiscalPeriod" label="{i18n>FISCAL_PERIOD}" labelTooltip="{i18n>FISCAL_PERIOD}" visibleInFilterBar="true" mandatory="true">
+                                <fb:control>
+                                   <Select id="fbFiscalPeriod" selectedKey="{/FiscalPeriod}" change="onCodeListCheck($event, 'FiscalPeriod')">
+                                        <items>
+                                            <core:Item key="01" text="1월"/>
+                                            <core:Item key="02" text="2월"/>
+                                            <core:Item key="03" text="3월"/>
+                                            <core:Item key="04" text="4월"/>
+                                            <core:Item key="05" text="5월"/>
+                                            <core:Item key="06" text="6월"/>
+                                            <core:Item key="07" text="7월"/>
+                                            <core:Item key="08" text="8월"/>
+                                            <core:Item key="09" text="9월"/>
+                                            <core:Item key="10" text="10월"/>
+                                            <core:Item key="11" text="11월"/>
+                                            <core:Item key="12" text="12월"/>
+                                        </items>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="WBSElement" label="{i18n>WBSElement}" labelTooltip="{i18n>WBSElement}" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Input id="fbWBSElement" showValueHelp="true" valueHelpRequest="onValueHelpDialog($event, 'WBSElement')" change="onCodeListCheck($event, 'WBSElement')"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="NewAccountDocument" label="{i18n>DOCUMENT_NEW_LABEL}" labelTooltip="{i18n>DOCUMENT_NEW_TOOLTIP}" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Select id="fbNewAccountDocument" selectedKey="{/NewAccountDocument}">
+                                        <items>
+                                            <core:Item key="" text=""/>
+                                            <core:Item key="true" text="{i18n>YES}"/>
+                                            <core:Item key="false" text="{i18n>NO}"/>
+                                        </items>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ZeroExcept" label="{i18n>ZeroExcept}" labelTooltip="{i18n>ZeroExcept}" visibleInFilterBar="true">
+                                <fb:control>
+                                    <CheckBox id="fbZeroExcept" />   
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:DynamicPageHeader>
+			</f:header>    
+            <f:content>
+                <layout:VerticalLayout>
+                    <table:Table
+                        id="iWBSGLACCOUNTList"
+                        selectionMode="MultiToggle"
+                        selectionBehavior="Row"
+                        rowSelectionChange="onSelectionRow"
+                        rows="{
+                            path:'oWBSGLACCOUNT>/',
+                            sorter : [{path : 'WBSElement'}]
+                        }"
+                        class="sapFDynamicPageAlignContent"
+                        sort="onSort" 
+                        columnResize="onColumnResize" 
+                        columnMove="onColumnMove"
+                        ariaLabelledBy="title"
+                        sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
+                        >
+                        <table:extension>
+                            <Toolbar>
+                                <Title text="{i18n>WBSGLACCOUNTCnt} ( {oLayout>/tableCnt} )" level="H2"/>
+                                <ToolbarSeparator/>
+                                <vm:VariantManagement id="p13nVm" for="iWBSGLACCOUNTList"/>
+                                <ToolbarSpacer/>
+                                <Button id="iPOSTButton" text="{i18n>BTN_POST}" press="onPost" tooltip="{i18n>BTN_POST}" enabled="false" />
+                                <Button icon="sap-icon://action-settings" press="openPersoDialog"/>
+                                <Button icon="sap-icon://excel-attachment" text="{i18n>BTN_EXCEL_DOWN}" visible="{oLayout>/exportVisible}" tooltip="Excel export" press="excelExport"/>
+                            </Toolbar>
+                        </table:extension>
+                        <table:dependents>
+                            <columnmenu:Menu id="menu">
+                                <columnmenu:items>
+                                    <columnmenu:ActionItem icon="sap-icon://sort" label="Sort" press="onColumnHeaderItemPress"/>
+                                    <columnmenu:ActionItem icon="sap-icon://table-column" label="Columns" press="onColumnHeaderItemPress"/>
+                                </columnmenu:items>
+                            </columnmenu:Menu>
+                        </table:dependents>
+                        <table:noData>
+                            <IllustratedMessage enableVerticalResponsiveness="true"/>
+                        </table:noData>
+                        <table:columns>
+                            <table:Column id="CostGroup" width="4%" filterProperty="CostGroup" sortProperty="CostGroup" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>CostGroup}" />
+                                <table:template>
+                                    <Text text="{oWBSGLACCOUNT>CostGroup}" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="CostGroupText" width="8%" filterProperty="CostGroupText" sortProperty="CostGroupText" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>CostGroupText}" />
+                                <table:template>
+                                    <Text text="{oWBSGLACCOUNT>CostGroupText}" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="WBSElement" width="5%" filterProperty="WBSElement" sortProperty="WBSElement" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>WBSElement}" />
+                                <table:template>
+                                    <Text text="{oWBSGLACCOUNT>WBSElement}" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="WBSDescription" width="20%" filterProperty="WBSDescription" sortProperty="WBSDescription" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>WBSDescription}" />
+                                <table:template>
+                                    <HBox justifyContent="Start">
+                                        <Text text="{oWBSGLACCOUNT>WBSDescription}" />
+                                    </HBox>
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="AmountInCompanyCodeCurrency" width="10%" filterProperty="AmountInCompanyCodeCurrency" sortProperty="AmountInCompanyCodeCurrency" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>AmountInCompanyCodeCurrency}" />
+                                <table:template>
+                                    <HBox justifyContent="End">
+                                        <Text text="{ parts: [ {path: 'oWBSGLACCOUNT>AmountInCompanyCodeCurrency'}, {path: 'oWBSGLACCOUNT>CompanyCodeCurrency'} ], formatter: '.formatCurrency' }" />
+                                    </HBox>
+                            </table:template>
+                            </table:Column>
+                            <table:Column id="AccountingDocument" width="5%" filterProperty="AccountingDocument" sortProperty="AccountingDocument" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>AccountingDocument}" />
+                                <table:template>
+                                    <Text text="{oWBSGLACCOUNT>NewAccountDocument}"  />
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="FiscalYearPeriod" width="5%" filterProperty="FiscalYearPeriod" sortProperty="FiscalYearPeriod" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true">
+                                <Label text="{i18n>FiscalYearPeriod}" />
+                                <table:template>
+                                    <HBox justifyContent="Center">
+                                        <Text text="{oWBSGLACCOUNT>FiscalYearPeriod}" />
+                                    </HBox>
+                                </table:template>
+                            </table:Column>
+                            <table:Column id="PostingMessage" width="15%" hAlign="Center" headerMenu="menu" resizable="true" autoResizable="true" >
+                                <Label text="{i18n>ErrorMessage}" />
+                                <table:template>
+                                    <Text text="{oWBSGLACCOUNT>PostingMessage}" />
+                                </table:template>
+                            </table:Column>
+                        </table:columns>
+                    </table:Table>
+                
+                    <table:Table
+                    id="iCreateGLTable"
+                    visible="false"
+                    rows="{oCreateGL>/}"
+                    selectionMode="None"
+                    visibleRowCount="5"
+                    class="sapUiSmallMarginTop sapFDynamicPageAlignContent"
+                    >
+                     <table:extension>
+                            <Toolbar>
+                                <Title text="{i18n>CreateGLCnt} ( {oLayout>/createTableCnt} )" level="H2"/>
+                            </Toolbar>
+                        </table:extension>
+                        <table:columns>
+                            <table:Column width="5%"  hAlign="Center">
+                            <Label text="{i18n>WIP_GL}" />
+                            <table:template>
+                                <Text text="{oCreateGL>WIP_GL}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="15%"  hAlign="Center">
+                            <Label text="{i18n>WIP_GLTEXT}" />
+                            <table:template>
+                                <Text text="{oCreateGL>WIP_GLTEXT}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="10%"  hAlign="Center">
+                            <Label text="{i18n>AmountInCompanyCodeCurrency}" />
+                            <table:template>
+                                <HBox justifyContent="End">
+                                    <Text text="{ parts: [ {path: 'oCreateGL>AmountInCompanyCodeCurrency'}, {path: 'oCreateGL>CompanyCodeCurrency'} ], formatter: '.formatCurrency' }" />
+                                </HBox>
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="5%" hAlign="Center">
+                            <Label text="{i18n>WBSElement}" />
+                            <table:template>
+                                <Text text="{oCreateGL>WBSElement}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="15%" hAlign="Center">
+                            <Label text="{i18n>WBSDescription}" />
+                            <table:template>
+                                <Text text="{oCreateGL>WBSDescription}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="5%" hAlign="Center">
+                            <Label text="{i18n>COST_GL}" />
+                            <table:template>
+                                <Text text="{oCreateGL>COST_GL}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="15%" hAlign="Center">
+                            <Label text="{i18n>COST_GLTEXT}" />
+                            <table:template>
+                                <Text text="{oCreateGL>COST_GLTEXT}" />
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="10%" hAlign="Center">
+                            <Label text="{i18n>AmountInCompanyCodeCurrency}" />
+                            <table:template>
+                                <HBox justifyContent="End">
+                                    <Text text="{ parts: [ {path: 'oCreateGL>AmountInCompanyCodeCurrency'}, {path: 'oCreateGL>CompanyCodeCurrency'} ], formatter: '.formatCurrency' }" />
+                                </HBox>
+                            </table:template>
+                            </table:Column>
+                            <table:Column width="5%" hAlign="Center">
+                                <Label text="{i18n>WBSElement}" />
+                                <table:template>
+                                    <Text text="{oCreateGL>WBSElement}" />
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="15%" hAlign="Center">
+                                <Label text="{i18n>WBSDescription}" />
+                                <table:template>
+                                    <Text text="{oCreateGL>WBSDescription}" />
+                                </table:template>
+                            </table:Column>
+                        </table:columns>
+                    </table:Table>
+                </layout:VerticalLayout>
+            </f:content>
+            <f:footer>
+                <OverflowToolbar>
+					<ToolbarSpacer/>
+                    <Button id="iSaveButton" text="{i18n>BTN_SAVE}" press="onSave" type="Accept" tooltip="저장" visible="false" />
+                    <Button id="iCancelButton" text="{i18n>BTN_CANCEL}" press="onCancel" type="Reject" tooltip="취소" visible="false" />
+				</OverflowToolbar>
+            </f:footer>
+        </f:DynamicPage>
+</mvc:View>

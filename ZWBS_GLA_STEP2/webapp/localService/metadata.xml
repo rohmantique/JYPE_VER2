@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YY1_ZGLA_WBS_CUBE_CDS" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="YY1_ZGLA_WBS_CUBEType" sap:label="CDS 뷰에 대한 레이블이 정의되지 않았습니다. YY1_12CAXHFJZ6HD" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:filterable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="TotaledProperties" Type="Edm.String" sap:aggregation-role="totaled-properties-list" sap:is-annotation="true" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:label="회사 코드" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="SourceLedger" Type="Edm.String" MaxLength="2" sap:aggregation-role="dimension" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="7" sap:aggregation-role="dimension" sap:label="회계 기간" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="yearmonth"/>
+                <Property Name="FiscalPeriod_T" Type="Edm.String" MaxLength="8" sap:label="회계 기간 (내역)" sap:quickinfo="회계 기간" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:aggregation-role="dimension" sap:label="WBS 요소" sap:quickinfo="편집된 작업 분석 구조 요소(WBS 요소)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:label="WBS 요소 이름" sap:quickinfo="작업 분석 구조 요소 이름" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:aggregation-role="dimension" sap:label="STEP" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="AmountInCompanyCodeCurrency" Type="Edm.Decimal" Precision="42" Scale="2" sap:aggregation-role="measure" sap:filterable="false" sap:text="AmountInCompanyCodeCurrency_F" sap:unit="CompanyCodeCurrency" sap:updatable="false" sap:label="금액(회사 코드 통화)" sap:creatable="false"/>
+                <Property Name="AmountInCompanyCodeCurrency_F" Type="Edm.String" MaxLength="60" sap:label="금액(회사 코드 통화) (포맷)" sap:quickinfo="금액(회사 코드 통화)" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCode" sap:label="회사 코드 (마스터 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode_ID"/>
+                </Key>
+                <Property Name="CompanyCode_ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:text="CompanyCodeText" sap:label="회사 코드" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeText" Type="Edm.String" sap:label="회사 코드 (내역)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeResult" sap:label="회사 코드 (예약된 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="회사 코드" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="SourceLedger" Type="Edm.String" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="7" sap:text="FiscalPeriod_T" sap:label="회계 기간" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod_T" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:label="WBS 요소" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:label="WBS 요소 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalYear" sap:label="회계연도 (마스터 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalYear_ID"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="FiscalYear_ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="회계연도 (회사 코드)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalYearResult" sap:label="회계연도 (예약된 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalYear"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="회계연도 (회사 코드)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SourceLedger" Type="Edm.String" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="7" sap:text="FiscalPeriod_T" sap:label="회계 기간" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod_T" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:label="WBS 요소" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:label="WBS 요소 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="SourceLedger" sap:label="소스 원장 (마스터 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SourceLedger_ID"/>
+                    <PropertyRef Name="FiscalYear"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="SourceLedger_ID" Type="Edm.String" Nullable="false" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="소스 원장 (회계연도)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="소스 원장 (회사 코드)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="SourceLedgerResult" sap:label="소스 원장 (예약된 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SourceLedger"/>
+                    <PropertyRef Name="FiscalYear"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="SourceLedger" Type="Edm.String" Nullable="false" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="소스 원장 (회계연도)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="소스 원장 (회사 코드)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="7" sap:text="FiscalPeriod_T" sap:label="회계 기간" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod_T" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:label="WBS 요소" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:label="WBS 요소 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalPeriod" sap:label="회계 기간 (마스터 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalPeriod_ID"/>
+                </Key>
+                <Property Name="FiscalPeriod_ID" Type="Edm.String" Nullable="false" MaxLength="7" sap:text="FiscalPeriodText" sap:label="회계 기간" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalPeriodText" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="FiscalPeriodResult" sap:label="회계 기간 (예약된 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FiscalPeriod"/>
+                </Key>
+                <Property Name="FiscalPeriod" Type="Edm.String" Nullable="false" MaxLength="7" sap:text="FiscalPeriodText" sap:label="회계 기간" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FiscalPeriodText" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="회사 코드" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="SourceLedger" Type="Edm.String" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:label="WBS 요소" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:label="WBS 요소 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" MaxLength="5" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeCurrency" sap:label="회사 코드 통화 (마스터 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCodeCurrency_ID"/>
+                </Key>
+                <Property Name="CompanyCodeCurrency_ID" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="CompanyCodeCurrencyText" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCodeCurrencyText" Type="Edm.String" sap:label="회사 코드 통화 (내역)" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CompanyCodeCurrencyResult" sap:label="회사 코드 통화 (예약된 데이터)" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCodeCurrency"/>
+                </Key>
+                <Property Name="CompanyCodeCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="회사 코드 통화" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:label="회사 코드" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:super-ordinate="CompanyCode" sap:label="회계연도" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="SourceLedger" Type="Edm.String" MaxLength="2" sap:super-ordinate="FiscalYear" sap:label="소스 원장" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod" Type="Edm.String" MaxLength="7" sap:text="FiscalPeriod_T" sap:label="회계 기간" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FiscalPeriod_T" Type="Edm.String" sap:label="회계 기간 (내역)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WBSElement" Type="Edm.String" MaxLength="24" sap:label="WBS 요소" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WBSDescription" Type="Edm.String" MaxLength="40" sap:label="WBS 요소 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="STEP" Type="Edm.String" MaxLength="2" sap:label="STEP" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="ODataQueryAdditionalMetadata" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ODataQueryMetadata"/>
+                </Key>
+                <Property Name="ODataQueryMetadata" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ODataQueryMetadataValue_Current" Type="Edm.String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ODataQueryMetadataValueAtDefine" Type="Edm.String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="YY1_ZGLA_WBS_CUBE_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="YY1_ZGLA_WBS_CUBE" EntityType="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCode" EntityType="YY1_ZGLA_WBS_CUBE_CDS.CompanyCode" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeResults" EntityType="YY1_ZGLA_WBS_CUBE_CDS.CompanyCodeResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalYear" EntityType="YY1_ZGLA_WBS_CUBE_CDS.FiscalYear" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalYearResults" EntityType="YY1_ZGLA_WBS_CUBE_CDS.FiscalYearResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SourceLedger" EntityType="YY1_ZGLA_WBS_CUBE_CDS.SourceLedger" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SourceLedgerResults" EntityType="YY1_ZGLA_WBS_CUBE_CDS.SourceLedgerResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalPeriod" EntityType="YY1_ZGLA_WBS_CUBE_CDS.FiscalPeriod" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="FiscalPeriodResults" EntityType="YY1_ZGLA_WBS_CUBE_CDS.FiscalPeriodResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeCurrency" EntityType="YY1_ZGLA_WBS_CUBE_CDS.CompanyCodeCurrency" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CompanyCodeCurrencyResults" EntityType="YY1_ZGLA_WBS_CUBE_CDS.CompanyCodeCurrencyResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AdditionalMetadata" EntityType="YY1_ZGLA_WBS_CUBE_CDS.ODataQueryAdditionalMetadata" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType/CompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="회사 코드 ( 마스터 데이터 )"/>
+                        <PropertyValue Property="CollectionPath" String="CompanyCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType/FiscalYear" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="회계연도 ( 마스터 데이터 )"/>
+                        <PropertyValue Property="CollectionPath" String="FiscalYear"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYear_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYearText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType/SourceLedger" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="소스 원장 ( 마스터 데이터 )"/>
+                        <PropertyValue Property="CollectionPath" String="SourceLedger"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SourceLedger"/>
+                                    <PropertyValue Property="ValueListProperty" String="SourceLedger_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="SourceLedgerText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalYear"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType/FiscalPeriod" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="회계 기간 ( 마스터 데이터 )"/>
+                        <PropertyValue Property="CollectionPath" String="FiscalPeriod"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FiscalPeriod"/>
+                                    <PropertyValue Property="ValueListProperty" String="FiscalPeriod_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FiscalPeriodText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_ZGLA_WBS_CUBE_CDS.YY1_ZGLA_WBS_CUBEType/CompanyCodeCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="회사 코드 통화 ( 마스터 데이터 )"/>
+                        <PropertyValue Property="CollectionPath" String="CompanyCodeCurrency"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCodeCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrency_ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeCurrencyText"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZGLA_WBS_CUBE_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://my409514-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_ZGLA_WBS_CUBE_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
