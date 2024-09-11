@@ -18,13 +18,13 @@ server:
         backend:
           - url: https://my409514-api.s4hana.cloud.sap
             path: /sap/bc/srt/scs_ext/sap/journalentrycreaterequestconfi
-            destination: C60_100_BASIC_AUTH
+            destination: C60_CUSTOM_SAML_ASSERTION
           - url: https://my409514-api.s4hana.cloud.sap
             path: /sap/opu/odata/sap/YY1_GLA_WBS_EXT_CDS
-            destination: C60_100_SAML_ASSERTION
+            destination: C60_CUSTOM_SAML_ASSERTION
           - url: https://my409514-api.s4hana.cloud.sap
             path: /sap
-            destination: C60_100_SAML_ASSERTION
+            destination: C60_CUSTOM_SAML_ASSERTION
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

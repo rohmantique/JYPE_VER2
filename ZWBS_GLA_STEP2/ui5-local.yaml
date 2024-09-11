@@ -32,7 +32,7 @@ server:
         backend:
           - path: /sap
             url: https://my409514-api.s4hana.cloud.sap
-            destination: C60_100_SAML_ASSERTION
+            destination: C60_CUSTOM_SAML_ASSERTION
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:

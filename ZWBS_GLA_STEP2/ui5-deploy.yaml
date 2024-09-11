@@ -14,7 +14,7 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         target:
-          destination: C60_100_SAML_ASSERTION
+          destination: C60_CUSTOM_SAML_ASSERTION
           url: https://my409514-api.s4hana.cloud.sap
         app:
           name: YY1_WBS_GL_2

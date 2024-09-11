@@ -232,10 +232,15 @@ sap.ui.define([
                 
                 
                 //value help list
-                var oCOMPANYCODE = self._setCustomModel(_oDataList, oView, "oCOMPANYCODE", "/sap/opu/odata/sap/API_COMPANYCODE_SRV/", "/A_CompanyCode", "JSONModel");
+                // var oCOMPANYCODE = self._setCustomModel(_oDataList, oView, "oCOMPANYCODE", "/sap/opu/odata/sap/API_COMPANYCODE_SRV/", "/A_CompanyCode", "JSONModel");
                 var oGLACCOUNT = self._setCustomModel(_oDataList, oView, "oGLACCOUNT", "/sap/opu/odata/sap/API_GLACCOUNTINCHARTOFACCOUNTS_SRV/", "/A_GLAccountText", "JSONModel");
                 var oWBSELEMENT = self._setCustomModel(_oDataList, oView, "oWBSELEMENT", "/sap/opu/odata/sap/API_ENTERPRISE_PROJECT_SRV;v=0002/", "/A_EnterpriseProjectElement", "JSONModel");
                 oWBSELEMENT.setSizeLimit(1000); //리스트 데이터 length 조정
+
+
+                //240910 oData api 갈아끼우기 노희진 수정
+                var oCOMPANYCODE = self._setCustomModel(_oDataList, oView, "oCOMPANYCODE", "/sap/opu/odata/sap/YY1_COMPANYCODE_CDS/", "/YY1_COMPANYCODE", "ODataModel");
+                console.log("oCOMPANYCODE: ", oCOMPANYCODE);
 
                 //Communication Model
                 var oCOMMUNICATION = self._setCustomModel(_oDataList, oView, "oCOMMUNICATION", "/sap/opu/odata/sap/yy1_zcostgroup_user_cds/", "/YY1_ZCOSTGROUP_USER", "JSONModel");
